@@ -2,9 +2,6 @@
 
 An automated, local-first workflow built with **n8n**, **Gemini AI**, and **Airtable** designed to eliminate manual pre-call research for boutique web agencies.
 
-## 📺 Live Proof of Work
-https://drive.google.com/file/d/19Kdwzvq3NYf97K1fX6_7kF50IKMVwqWD/view?usp=sharing
-
 ---
 
 ## 🏗️ Architecture & Flow
