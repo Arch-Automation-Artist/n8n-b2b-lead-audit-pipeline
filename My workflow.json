@@ -1,0 +1,308 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -96
+      ],
+      "id": "15fddf46-c9dc-41ac-84a3-aae9ac1dd6c7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appPX1dOWugMKw2XP",
+          "mode": "list",
+          "cachedResultName": "Ruby Workspaces",
+          "cachedResultUrl": "https://airtable.com/appPX1dOWugMKw2XP"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWIjaNFRKFp2Gds",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appPX1dOWugMKw2XP/tblWIjaNFRKFp2Gds"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Audit Summary": "={{ $json.content.parts[0].text.split(/\\*\\*\\*|---|### 2|\\*\\*2/)[0].replace(/### 1\\..*|\\*\\*1\\..*\\*\\*/g, '').replace(/\\*/g, '').trim() }}",
+            "Drafted Pitch": "={{ $json.content.parts[0].text.split(/\\*\\*\\*|---|### 2|\\*\\*2/).slice(-1)[0].replace(/.*Value Pitch/i, '').replace(/### 2\\..*|\\*\\*2\\..*\\*\\*/g, '').replace(/\\*/g, '').trim() }}",
+            "Agency Name": "={{ $('HTTP Request').params.url.replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0] }}",
+            "Website": "={{ $('HTTP Request').params.url }}",
+            "Status": "Audited",
+            "Contact Person": "={{ $json.content.parts[0].text.includes(\"James\") ? \"James\" : \"Agency Founder\" }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Agency Name",
+              "displayName": "Agency Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Audit Summary",
+              "displayName": "Audit Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Drafted Pitch",
+              "displayName": "Drafted Pitch",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "New Lead",
+                  "value": "New Lead"
+                },
+                {
+                  "name": "Audited",
+                  "value": "Audited"
+                },
+                {
+                  "name": "Outreach Sent",
+                  "value": "Outreach Sent"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Contact Person",
+              "displayName": "Contact Person",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date Generated",
+              "displayName": "Date Generated",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        112
+      ],
+      "id": "2aeabc09-42ed-4271-9fe1-21702ff59091",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "8MAzOERBt24hsnJj",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.rubi.agency/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -80,
+        -96
+      ],
+      "id": "73d335df-58fc-461a-9c2e-78ad0addcf94",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "page_text",
+              "cssSelector": "body",
+              "skipSelectors": "script, style, nav, foscript, style, nav, footer, img, aoter, img, a"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        -96
+      ],
+      "id": "678f8666-8354-4cd1-9512-51a81f3c9132",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $input.item.json.page_text || \"\";\n// Strip URLs and consolidate extra newlines/spaces\nconst cleanedText = rawText\n  .replace(/https?:\\/\\/\\S+/g, '')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nreturn { cleaned_text: cleanedText };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        -96
+      ],
+      "id": "125f2846-f643-4f26-9e82-dd93fcd5bbf3",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {}
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        112
+      ],
+      "id": "5978cd03-c9e4-4d1a-a710-30632b3a4ef8",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "SXrh0OdrXujgcBcA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "cac45933-0fc2-4ef0-be4f-778226057888",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b910069398f9ad8249e2306250d1544016200466007ce39ce6ce11f9a2253d25"
+  },
+  "nodeGroups": [],
+  "id": "UdL7ZTq8J23LNSKq",
+  "tags": []
+}
