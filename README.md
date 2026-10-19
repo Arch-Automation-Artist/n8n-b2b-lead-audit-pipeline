@@ -1,10 +1,10 @@
 Automated B2B Lead-Audit Pipeline =
 
-An automated, local-first workflow built with n8n, Gemini AI, and Airtable designed to eliminate manual pre-call 
+[An automated, local-first workflow built with n8n, Gemini AI, and Airtable designed to eliminate manual pre-call 
+research for boutique web agencies. ]
 
-research for boutique web agencies. 
 
-📺 Live Proof of Work =
+A.📺 Live Proof of Work =
 
 [Watch the 15-Second Live Execution Demo]🙂
 
@@ -12,7 +12,7 @@ research for boutique web agencies.
 
 ---
 
-🏗️ Architecture & Flow =
+B.🏗️ Architecture & Flow =
 
 1.HTTP Request Node:  Scrapes target agency or prospect web assets.
 
@@ -26,7 +26,7 @@ research for boutique web agencies.
 
 ---
 
-🚀 Key Features =
+C.🚀 Key Features =
 
 1.Zero Manual Prep:  Automatically audits inbound prospects before discovery calls.
 
@@ -36,7 +36,7 @@ research for boutique web agencies.
 
 ---
 
-🛠️ Setup & Deployment =
+D.🛠️ Setup & Deployment =
 
 1.Import My workflow.json into your n8n instance.
 
@@ -46,4 +46,4 @@ research for boutique web agencies.
 
 4.Trigger manually or wire to an inbound HTTP webhook.
 
-[Thanks for visiting us . Please Support us. 😄]
+E.[Thanks for visiting us . Please Support us. 😄]
